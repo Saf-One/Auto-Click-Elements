@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Auto Clicker</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+        }
+        
+        button {
+            margin: 5px 0;
+            padding: 8px;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .saved-elements {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .element-item {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .delete-btn {
+            color: red;
+            cursor: pointer;
+        }
+        /* Manual selector input styling */
+        
+        .manual-selector {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        
+        .manual-selector input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+        
+        .manual-selector-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .toggle-manual {
+            background: none;
+            border: none;
+            color: #0275d8;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 0;
+            width: auto;
+            text-decoration: underline;
+        }
+        /* Tabs styling */
+        
+        .tabs-container {
+            margin-top: 15px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .tab-btn {
+            background: #f1f1f1;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 8px 16px;
+            margin-right: 2px;
+            border-radius: 4px 4px 0 0;
+            width: auto;
+        }
+        
+        .tab-btn.active {
+            background: #ddd;
+            border-bottom: 2px solid #4CAF50;
+        }
+        /* Logs panel styling */
+        
+        .logs-panel {
+            margin-top: 15px;
+        }
+        
+        .logs-controls {
+            display: flex;
+            margin-bottom: 10px;
+            gap: 5px;
+        }
+        
+        .logs-controls select {
+            flex: 1;
+            padding: 6px;
+        }
+        
+        .logs-controls button {
+            width: auto;
+            white-space: nowrap;
+        }
+        
+        .logs-container {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 5px;
+            background: #f9f9f9;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 4px;
+            border-radius: 3px;
+            font-size: 12px;
+            border-left: 3px solid #ccc;
+        }
+        
+        .log-debug {
+            background: #eee;
+            border-left-color: #6c757d;
+        }
+        
+        .log-info {
+            background: #e3f2fd;
+            border-left-color: #0275d8;
+        }
+        
+        .log-warning {
+            background: #fff3cd;
+            border-left-color: #f0ad4e;
+        }
+        
+        .log-error {
+            background: #f8d7da;
+            border-left-color: #d9534f;
+        }
+        
+        .log-header {
+            display: flex;
+            margin-bottom: 2px;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .log-time {
+            min-width: 80px;
+        }
+        
+        .log-level {
+            min-width: 60px;
+            font-weight: bold;
+        }
+        
+        .log-module {
+            color: #0275d8;
+        }
+        
+        .log-message {
+            word-break: break-word;
+        }
+        
+        .log-data {
+            margin-top: 3px;
+            padding: 3px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+            font-size: 11px;
+            color: #666;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        
+        .loading-logs,
+        .no-logs {
+            padding: 10px;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Auto Clicker</h2>
+    <button id="startSelection">Select Element to Auto-Click</button>
+    <button id="stopSelection" style="display: none;">Cancel Selection</button>
+
+    <!-- Manual Selector Input Form -->
+    <div class="manual-selector-header">
+        <h3>Manual Selector</h3>
+        <button class="toggle-manual" id="toggleManual">Show</button>
+    </div>
+    <div class="manual-selector" id="manualSelectorForm" style="display: none;">
+        <input type="text" id="selectorInput" placeholder="Enter CSS selector (e.g., #button-id, .class-name)">
+        <input type="text" id="elementNameInput" placeholder="Element name (optional)">
+        <button id="saveSelector">Save Selector</button>
+    </div>
+
+    <div class="saved-elements">
+        <h3>Saved Elements for This Domain</h3>
+        <div id="elementsList"></div>
+    </div>
+
+    <!-- Load logger.js before popup.js -->
+    <script src="logger.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>
